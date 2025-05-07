@@ -1,8 +1,10 @@
 import { Button } from '@react-native-material/core';
-import { FlatList, StyleSheet, Text, View ,Image} from 'react-native';
+import { FlatList, Text, View, Image } from 'react-native';
 
-const Data = ({navigation}) => {
-    const data=[
+
+const Data = ({ navigation }) => {
+
+    const data = [
         {id: 1, name: "Alex Carter", role: "Student", age: 18, mobile: "+1 (555) 123-4567", address: "123 Maple St, Boston, USA", language: "English"},
         {id: 2, name: "Bella Thompson", role: "Teacher (Math)", age: 32, mobile: "+1 (555) 234-5678", address: "456 Oak Ave, New York, USA", language: "English, Spanish"},
         {id: 3, name: "Chris Wilson", role: "Principal", age: 45, mobile: "+1 (555) 345-6789", address: "789 Pine Rd, Chicago, USA", language: "English, French"},
@@ -24,87 +26,43 @@ const Data = ({navigation}) => {
         {id: 19, name: "Sara Ali", role: "Maintenance", age: 47, mobile: "+1 (555) 990-0112", address: "770 Poplar St, Orlando, USA", language: "English, Arabic"},
         {id: 20, name: "Tom Nguyen", role: "Substitute Teacher", age: 30, mobile: "+1 (555) 001-1223", address: "880 Cedar Ave, San Antonio, USA", language: "English, Vietnamese"}
     ];
-   const handleView=(item)=>{
-    // console.log(item);
-    console.log("page is enter to detail page")
-    navigation.push('Details',{item})
-   }
+
+    const handleView = (item) => {
+        navigation.push('Details', { item });
+    };
+
     return (
-        <View style={styles.main}>
-            <Text style={styles.header}>School Directory</Text>
+        <View className="flex-1 bg-black" >
+            <Text className="text-3xl font-bold text-white text-center py-4">School Directory</Text>
+            
             <FlatList
                 data={data}
-                contentContainerStyle={styles.listContent}
+                contentContainerStyle={{ paddingBottom: 20 }}
                 keyExtractor={(item) => item.id.toString()}
-                renderItem={({item}) => (
-                    <View style={styles.card}>
-                        <View style={styles.maincard}>
-                        <Image source={{uri:`https://mui.com/static/images/avatar/${(item.id)%7+1}.jpg`}} style={{width:100,height:100}}/>
-                        <View  style={styles.subcard}>
-                        <Text style={styles.name}>{item.name}</Text>
-                        <Text style={styles.detail}> {item.role}</Text>
+                renderItem={({ item }) => (
+                    <View className="bg-white mx-4 my-2 p-6 rounded-lg border border-gray-300">
+                        <View className="flex-row items-start">
+                            <Image 
+                                source={{ uri: `https://mui.com/static/images/avatar/${(item.id) % 7 + 1}.jpg` }} 
+                                className="w-20 h-20 rounded-full"
+                            />
+                            <View className="ml-4 flex-1">
+                                <Text className="text-xl font-bold">{item.name}</Text>
+                                <Text className="text-lg text-gray-600">{item.role}</Text>
+                            </View>
                         </View>
-                        </View>
-                        <View style={styles.button}>
-                        <Button title='View' onPress={()=>handleView(item)}></Button>
+                        <View className="mt-4 self-center w-24">
+                            <Button 
+                                title="View" 
+                                onPress={() => handleView(item)}
+                                color="#3b82f6"
+                            />
                         </View>
                     </View>
                 )}
             />
         </View>
     );
-}
-
-const styles = StyleSheet.create({
-    button:{
-        width:80,
-        marginTop: 10,
-        alignItems: 'center',
-        alignSelf:'center'
-    },
-      main:{
-        paddingTop:20,
-        flex:1,
-        backgroundColor:'black',
-        alignItems:'center'
-      },
-      header:{
-        fontSize:30,
-        fontWeight:'bold',
-        paddingBottom:15,
-        color:'white',
-      },
-maincard:{
-  flexDirection:'row'
-},
-listContent:{
-    // backgroundColor:'#b0e0e6',
-},
-      card:{
-       
-        paddingVertical:20,
-        borderColor:'grey',
-        borderWidth:1,
-        marginVertical:10,
-        paddingHorizontal:25,
-        borderRadius:8,
-        backgroundColor:'white',
-      }
-      ,name:{
-       fontWeight:'bold',
-       fontSize:25,
-       paddingTop:25,
-
-      },
-      subcard:{
-        flexDirection:'column',
-        paddingLeft:10,
-      },
-      detail:{
-         fontSize:20,
-      }
-      
-
-});
+};
 
 export default Data;
